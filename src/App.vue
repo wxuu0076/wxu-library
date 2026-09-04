@@ -1,9 +1,12 @@
 <script setup>
-import LibraryRegistrationForm from './components/LibraryRegistrationForm.vue'
-// import JSONLab from './components/JSON.vue'
+import BHeader from './components/BHeader.vue'
 </script>
 
 <template>
-  <LibraryRegistrationForm />
-  <!-- <JSONLab /> -->
+  <div class="main-container">
+    <BHeader />
+    <main class="main-box container pb-5">
+      <router-view></router-view>
+    </main>
+  </div>
 </template>
