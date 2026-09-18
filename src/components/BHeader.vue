@@ -76,6 +76,11 @@ onBeforeUnmount(() => {
             Firebase Register
           </router-link>
         </li>
+        <li class="nav-item">
+          <router-link to="/addbook" class="nav-link" active-class="active">
+            Add Book
+          </router-link>
+        </li>
         <li v-if="!firebaseUser" class="nav-item">
           <router-link to="/FireLogin" class="nav-link" active-class="active">
             Firebase Login
