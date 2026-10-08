@@ -1,11 +1,11 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import {
   collection,
   deleteDoc,
   doc,
-  getDocs,
   limit,
+  onSnapshot,
   orderBy,
   query,
   updateDoc,
@@ -14,37 +14,39 @@ import {
 import db from '../firebase/init'
 
 const books = ref([])
+let stopWatchingBooks
 
-const loadBooks = async () => {
-  const q = query(
-    collection(db, 'books'),
-    where('isbn', '>', 1000),
-    orderBy('isbn'),
-    limit(10),
-  )
-  const querySnapshot = await getDocs(q)
-
-  books.value = querySnapshot.docs.map((book) => ({
-    id: book.id,
-    isbn: book.data().isbn,
-    name: book.data().name,
-  }))
-}
+const booksQuery = query(
+  collection(db, 'books'),
+  where('isbn', '>', 1000),
+  orderBy('isbn'),
+  limit(10),
+)
 
 const updateBook = async (book) => {
   await updateDoc(doc(db, 'books', book.id), {
     isbn: Number(book.isbn),
     name: book.name,
   })
-  await loadBooks()
 }
 
 const deleteBook = async (id) => {
   await deleteDoc(doc(db, 'books', id))
-  await loadBooks()
 }
 
-onMounted(loadBooks)
+onMounted(() => {
+  stopWatchingBooks = onSnapshot(booksQuery, (querySnapshot) => {
+    books.value = querySnapshot.docs.map((book) => ({
+      id: book.id,
+      isbn: book.data().isbn,
+      name: book.data().name,
+    }))
+  })
+})
+
+onBeforeUnmount(() => {
+  stopWatchingBooks?.()
+})
 </script>
 
 <template>
