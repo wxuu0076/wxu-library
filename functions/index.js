@@ -18,6 +18,23 @@ exports.countBooks = onRequest((request, response) => {
   })
 })
 
+exports.getAllBooks = onRequest((request, response) => {
+  return cors(request, response, async () => {
+    try {
+      const snapshot = await getFirestore().collection('books').get()
+      const books = snapshot.docs.map((book) => ({
+        id: book.id,
+        ...book.data(),
+      }))
+
+      response.json(books)
+    } catch (error) {
+      console.error('Unable to get books:', error)
+      response.status(500).json({ error: 'Unable to get books' })
+    }
+  })
+})
+
 exports.capitalizeBookFields = onDocumentCreated('books/{bookId}', async (event) => {
   const snapshot = event.data
 
