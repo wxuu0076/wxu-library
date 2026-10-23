@@ -1,7 +1,7 @@
 {
   "functions": [
     {
-      "source": "functions",
+      "source": "firebase-functions",
       "codebase": "default",
       "ignore": [
         "node_modules",
@@ -13,23 +13,7 @@
     }
   ],
   "firestore": {
-    "rules": "firestore.emulator.rules",
+    "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
-  },
-  "emulators": {
-    "functions": {
-      "host": "127.0.0.1",
-      "port": 5001
-    },
-    "firestore": {
-      "host": "127.0.0.1",
-      "port": 8080
-    },
-    "ui": {
-      "enabled": true,
-      "host": "127.0.0.1",
-      "port": 4000
-    },
-    "singleProjectMode": true
   }
 }

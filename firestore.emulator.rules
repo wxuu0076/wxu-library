@@ -2,7 +2,8 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Local Emulator access only. Do not deploy this file to production.
+    // LOCAL EMULATOR ONLY. firebase.json does not reference this file.
+    // Start the emulators with firebase.emulator.json. Never deploy this ruleset.
     match /{document=**} {
       allow read, write: if true;
     }
