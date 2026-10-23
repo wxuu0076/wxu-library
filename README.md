@@ -58,12 +58,10 @@ npm create cloudflare@latest -- INITIALS-library --framework=vue --platform=page
 C3 scaffolds a separate project, installs Wrangler, and offers to deploy it.
 That interactive deployment is the C3 step shown in the studio instructions.
 
-This existing repository contains the equivalent minimal Wrangler configuration
-needed for later IDE deployments. After logging in and checking the project name
-in `wrangler.jsonc`, run:
+This existing repository uses an explicit Wrangler command for later IDE
+deployments. After logging in, run:
 
 ```sh
-npm run build
 npm run deploy
 ```
 
